@@ -82,17 +82,16 @@ WSGI_APPLICATION = 'bees_backend.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config()
-    # {
-    #     'ENGINE': 'django.contrib.gis.db.backends.postgis',
-    #     'HOST': 'ec2-79-125-124-30.eu-west-1.compute.amazonaws.com',
-    #     'PORT': 5432,
-    #     'NAME': 'd63tmf68vdvsk0',
-    #     'USER': 'vpggbpvfwlpnfc',
-    #     'PASSWORD': '9c5f1961183a5736480a877bfe50935ab54ef855391fa72db7dbf8d39b6e2ead',
-    # }
+    'default':  {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'HOST': 'ec2-79-125-124-30.eu-west-1.compute.amazonaws.com',
+        'PORT': 5432,
+        'NAME': 'd63tmf68vdvsk0',
+        'USER': 'vpggbpvfwlpnfc',
+        'PASSWORD': '9c5f1961183a5736480a877bfe50935ab54ef855391fa72db7dbf8d39b6e2ead',
+    }
 }
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+# DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
 GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
