@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cf634c95-882a-46dc-aa35-9c5ef91218d7" name="Default" comment="" />
+    <list default="true" id="cf634c95-882a-46dc-aa35-9c5ef91218d7" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/bees_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/bees_backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,14 +59,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="temp" pinned="false" current-in-tab="true">
-        <entry file="das://26b74084-9bc0-4d3e-9ee0-aa2906bf5ede/database/SPDB/schema/dbo/table/temp">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-              <column-attributes>
-                <column name="%%physloc%%" enabled="false" />
-              </column-attributes>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bees_backend/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="631">
+              <caret line="97" column="50" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
+              <folding>
+                <element signature="e#313#322#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,6 +87,9 @@
       <find>+</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -95,7 +101,6 @@
         <option value="$PROJECT_DIR$/api/bees/geo_serializer.py" />
         <option value="$PROJECT_DIR$/api/bees/utils.py" />
         <option value="$PROJECT_DIR$/bees_backend/urls.py" />
-        <option value="$PROJECT_DIR$/bees_backend/settings.py" />
         <option value="$PROJECT_DIR$/api/auth/__init__.py" />
         <option value="$PROJECT_DIR$/api/urls.py" />
         <option value="$PROJECT_DIR$/api/bees/bee.py" />
@@ -111,6 +116,7 @@
         <option value="$PROJECT_DIR$/api/utils.py" />
         <option value="$PROJECT_DIR$/api/bees/job.py" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/8fd2d3f8-feb0-4d08-b491-e5f8e11af8db/console.sql" />
+        <option value="$PROJECT_DIR$/bees_backend/settings.py" />
       </list>
     </option>
   </component>
@@ -127,6 +133,7 @@
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -238,18 +245,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32900944" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.27140078" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Database Console" visible="true" weight="0.32976654" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49912128" visible="true" weight="0.18125" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49912128" visible="true" weight="0.18125" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="right" id="Database" order="3" visible="true" weight="0.3296875" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.3296875" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50087875" side_tool="true" weight="0.24166666" />
@@ -399,13 +407,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1424">
           <caret line="114" column="8" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bees_backend/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="22" column="64" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -565,13 +566,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8fd2d3f8-feb0-4d08-b491-e5f8e11af8db/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/26b74084-9bc0-4d3e-9ee0-aa2906bf5ede/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -582,6 +576,23 @@
           <column-attributes>
             <column name="%%physloc%%" enabled="false" />
           </column-attributes>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8fd2d3f8-feb0-4d08-b491-e5f8e11af8db/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bees_backend/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="631">
+          <caret line="97" column="50" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
+          <folding>
+            <element signature="e#313#322#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
