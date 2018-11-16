@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf634c95-882a-46dc-aa35-9c5ef91218d7" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/bees_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/bees_backend/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vendor_urls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,14 +59,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bees_backend/settings.py">
+      <file leaf-file-name=".vendor_urls" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.vendor_urls">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
-              <folding>
-                <element signature="e#313#322#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="28">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -116,6 +114,7 @@
         <option value="$PROJECT_DIR$/api/bees/job.py" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/8fd2d3f8-feb0-4d08-b491-e5f8e11af8db/console.sql" />
         <option value="$PROJECT_DIR$/bees_backend/settings.py" />
+        <option value="$PROJECT_DIR$/.vendor_urls" />
       </list>
     </option>
   </component>
@@ -592,6 +591,13 @@
           <folding>
             <element signature="e#313#322#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.vendor_urls">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
