@@ -1,0 +1,6 @@
+Django==2.1.2
+djangorestframework==3.8.2
+djangorestframework-gis==0.13
+psycopg2==2.7.5
+pytz==2018.7
+six==1.11.0
