@@ -53,9 +53,21 @@ class EmployerBee(Bee):
 
 
 class CreditCardData(models.Model):
-    number = models.CharField(max_length=19)
-    exp_date = models.CharField(max_length=5)
-    cvv = models.CharField(max_length=3)
+    number = models.CharField(
+        max_length=19,
+        blank=True,
+        default='',
+    )
+    exp_date = models.CharField(
+        max_length=5,
+        blank=True,
+        default='',
+    )
+    cvv = models.CharField(
+        max_length=3,
+        blank=True,
+        default='',
+    )
 
 
 class Job(models.Model):
@@ -105,8 +117,9 @@ class JobFilter(models.Model):
         Category,
         related_name='interests',
     )
-    range = models.PositiveIntegerField()
+    range = models.PositiveIntegerField(default=20)
     min_price = models.DecimalField(
         max_digits=9,
         decimal_places=2,
+        default=0.0,
     )

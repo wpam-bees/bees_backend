@@ -3,6 +3,8 @@ from rest_framework import serializers, generics, permissions, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from bees.models import WorkerBee, EmployerBee
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,6 +47,10 @@ class UserCreateView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
+
+        WorkerBee.objects.create(user=serializer.instance)
+        EmployerBee.objects.create(user=serializer.instance)
+
         headers = self.get_success_headers(serializer.data)
         token = Token.objects.create(user=serializer.instance)
         return Response(token.key, status=status.HTTP_201_CREATED, headers=headers)

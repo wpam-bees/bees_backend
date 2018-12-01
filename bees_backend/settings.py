@@ -80,17 +80,25 @@ WSGI_APPLICATION = 'bees_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+is_heroku = os.getenv('IS_HEROKU') == 'TRUE'
 
-DATABASES = {
-    'default':  dj_database_url.config(),
-}
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+if is_heroku:
+    DATABASES = {
+        'default':  dj_database_url.config(),
+    }
+    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-GEOS_LIBRARY_PATH = "{}/libgeos_c.so".format(os.getenv('GDAL_LIBRARY_PATH'))
-GDAL_LIBRARY_PATH = "{}/libgdal.so".format(os.getenv('GEOS_LIBRARY_PATH'))
-# GEOS_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
-# GDAL_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
-
+    GEOS_LIBRARY_PATH = "{}/libgeos_c.so".format(os.getenv('GDAL_LIBRARY_PATH'))
+    GDAL_LIBRARY_PATH = "{}/libgdal.so".format(os.getenv('GEOS_LIBRARY_PATH'))
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'bees',
+            'USER': 'p.rybak',
+            'PASSWORD': '',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
