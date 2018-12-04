@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.gis import measure
 from django.contrib.gis.db import models
+from django.db import transaction
+from django.db.models import Q
 
 
 class SoftDeleteModel(models.Model):
@@ -37,6 +40,19 @@ class WorkerBee(Bee):
         on_delete=models.CASCADE,
         related_name='worker'
     )
+    balance = models.PositiveIntegerField(
+        default=0,
+    )
+
+    def active_jobs(self, queryset=None):
+        if not queryset:
+            queryset = Job.objects.all()
+        my_offers = Offer.objects.filter(
+            bidder=self,
+            accepted=True,
+        )
+        return queryset.exclude(finished=True)\
+            .filter(offers__in=my_offers)
 
 
 class EmployerBee(Bee):
@@ -70,7 +86,15 @@ class CreditCardData(models.Model):
     )
 
 
+class JobQuerySet(models.QuerySet):
+    def available(self):
+        offers = Offer.objects.filter(accepted=True)
+        return self.exclude(offers__in=offers).exclude(finished=True)
+
+
 class Job(models.Model):
+    objects = JobQuerySet.as_manager()
+
     principal = models.OneToOneField(  # TODO: Rename?
         'EmployerBee',
         null=True,
@@ -87,12 +111,50 @@ class Job(models.Model):
         max_digits=9,
         decimal_places=2,
     )
+    finished = models.BooleanField(default=False)
+
+    @property
+    def is_accepted(self):
+        return Offer.objects.filter(
+            job=self,
+            accepted=True,
+        ).exists()
+
+    @property
+    def worker(self):
+        offer = Offer.objects.filter(
+            job=self,
+            accepted=True,
+        ).first()
+        if offer is None:
+            return None
+        return offer.bidder
+
+    def accept(self, worker):
+        # Shortcut method of adding offer while bidding is not implemented
+        Offer.objects.create(
+            job=self,
+            bidder=worker,
+            value=self.initial_fee,
+            accepted=True,
+        )
+        return self
+
+    @transaction.atomic
+    def finish(self):
+        self.finished = True
+        worker = self.worker
+        worker.balance += self.initial_fee
+        worker.save()
+        self.save()
+        return self
 
 
 class Offer(models.Model):
     job = models.ForeignKey(
         Job,
         on_delete=models.CASCADE,
+        related_name='offers',
     )
     bidder = models.ForeignKey(
         WorkerBee,
@@ -117,9 +179,16 @@ class JobFilter(models.Model):
         Category,
         related_name='interests',
     )
-    range = models.PositiveIntegerField(default=20)
+    radius = models.PositiveIntegerField(default=20)
     min_price = models.DecimalField(
         max_digits=9,
         decimal_places=2,
         default=0.0,
     )
+
+    def apply(self, queryset):
+        return queryset.filter(
+            Q(location__isnull=True) | Q(distance__lte=(measure.Distance(km=self.radius))),
+            initial_fee__gte=self.min_price,
+            category__in=self.categories.all(),
+        )
