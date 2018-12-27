@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+
+import braintree
 import django_heroku
 import dj_database_url
 
@@ -152,5 +154,14 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+gateway = braintree.BraintreeGateway(
+    braintree.Configuration(
+        braintree.Environment.Sandbox,
+        merchant_id="cwsft3vzjpgfjptf",
+        public_key="kbxx7rhzzcbqtw7q",
+        private_key="4369f7d43b601136ac328ee435df402c"
+    )
+)
 
 # django_heroku.settings(locals())

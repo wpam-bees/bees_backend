@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Q
+from django.conf import settings
 
 
 class SoftDeleteModel(models.Model):
@@ -62,11 +63,25 @@ class EmployerBee(Bee):
         on_delete=models.CASCADE,
         related_name='employer_bee',
     )
-    credit_card = models.OneToOneField(
-        'CreditCardData',
-        on_delete=models.CASCADE,
-        related_name='employer'
+    braintree_id = models.CharField(
+        max_length=20,
+        null=True,
     )
+    # credit_card = models.OneToOneField(
+    #     'CreditCardData',
+    #     on_delete=models.CASCADE,
+    #     related_name='employer'
+    # )
+
+    def create_braintree_client(self):
+        resp = settings.gateway.customer.create({
+            "first_name": self.user.first_name,
+            "last_name": self.user.last_name,
+            "email": self.user.email,
+        })
+        if resp.is_success:
+            self.braintree_id = resp.customer.id
+        return resp
 
 
 class CreditCardData(models.Model):

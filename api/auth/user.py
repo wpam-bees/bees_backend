@@ -55,8 +55,8 @@ class UserCreateView(generics.CreateAPIView):
 
         filters = JobFilter.objects.create()
         WorkerBee.objects.create(user=serializer.instance, filters=filters)
-        credit_card = CreditCardData.objects.create()
-        EmployerBee.objects.create(user=serializer.instance, credit_card=credit_card)
+        emp = EmployerBee.objects.create(user=serializer.instance)
+        emp.create_braintree_client()
 
         headers = self.get_success_headers(serializer.data)
         token = Token.objects.create(user=serializer.instance)
