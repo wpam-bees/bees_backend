@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.gis import measure
 from django.contrib.gis.db import models
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Q
 
@@ -95,7 +96,7 @@ class JobQuerySet(models.QuerySet):
 class Job(models.Model):
     objects = JobQuerySet.as_manager()
 
-    principal = models.OneToOneField(  # TODO: Rename?
+    principal = models.ForeignKey(  # TODO: Rename?
         'EmployerBee',
         null=True,
         on_delete=models.SET_NULL,
@@ -105,7 +106,7 @@ class Job(models.Model):
         on_delete=models.PROTECT,
     )
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     location = models.PointField(null=True)
     initial_fee = models.DecimalField(
         max_digits=9,
@@ -118,6 +119,14 @@ class Job(models.Model):
         return Offer.objects.filter(
             job=self,
             accepted=True,
+        ).exists()
+
+    @property
+    def marked_finished(self):
+        return Offer.objects.filter(
+            job=self,
+            accepted=True,
+            finished=True
         ).exists()
 
     @property
@@ -142,6 +151,12 @@ class Job(models.Model):
 
     @transaction.atomic
     def finish(self):
+        accepted_offer = Offer.objects.filter(
+            job=self,
+            accepted=True,
+        ).first()
+        if not accepted_offer.finished:
+            raise ValidationError('Bee worker must finish job first')
         self.finished = True
         worker = self.worker
         worker.balance += self.initial_fee
@@ -168,6 +183,15 @@ class Offer(models.Model):
     accepted = models.BooleanField(
         default=False,
     )
+    finished = models.BooleanField(
+        default=False,
+    )
+
+    @transaction.atomic
+    def finish(self):
+        self.finished = True
+        self.save()
+        return self
 
 
 class Category(models.Model):
