@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.gis import measure, geos
 from django.contrib.gis.db.models import functions
 from django.db import transaction
@@ -11,6 +12,9 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 from bees.models import Job, Offer
+
+
+gateway = settings.GATEWAY
 
 
 class LocationSerializer(serializers.Serializer):
@@ -62,7 +66,7 @@ class JobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Job
-        fields = '__all__'
+        exclude = ('transaction_id',)
 
 
 class JobFilter(filters.FilterSet):
@@ -96,7 +100,21 @@ class JobViewSet(viewsets.ModelViewSet):
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(principal=self.request.user.employer_bee)
+        nonce = self.request.data.get('nonce')
+        result = gateway.transaction.sale({
+            'amount': serializer.validated_data.get('initial_fee'),
+            'merchant_account_id': 'bees',
+            "payment_method_nonce": nonce,
+            "options": {
+                "submit_for_settlement": True
+            }
+        })
+        if not result.is_success:
+            raise ValidationError('Transaction could not be finalized')
+        serializer.save(
+            principal=self.request.user.employer_bee,
+            transaction_id=result.transaction.id,
+        )
 
     def perform_destroy(self, instance):
         has_offer = Offer.objects.filter(
@@ -105,6 +123,13 @@ class JobViewSet(viewsets.ModelViewSet):
         ).exists()
         if instance.finished or has_offer:
             raise ValidationError('Accepted and finished jobs cannot be removed')
+
+        braintree_transaction = gateway.transaction.find(instance.transaction_id)
+        if braintree_transaction.status == 'submitted_for_settlement':
+            gateway.transaction.void(braintree_transaction.id)
+        elif braintree_transaction.status == 'settled':
+            gateway.transaction.refund(braintree_transaction.id)
+
         instance.delete()
 
     @action(detail=False, methods=['GET'])

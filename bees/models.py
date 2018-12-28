@@ -74,13 +74,14 @@ class EmployerBee(Bee):
     # )
 
     def create_braintree_client(self):
-        resp = settings.gateway.customer.create({
+        resp = settings.GATEWAY.customer.create({
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
             "email": self.user.email,
         })
         if resp.is_success:
             self.braintree_id = resp.customer.id
+            self.save()
         return resp
 
 
@@ -128,6 +129,7 @@ class Job(models.Model):
         decimal_places=2,
     )
     finished = models.BooleanField(default=False)
+    transaction_id = models.CharField(max_length=100)
 
     @property
     def is_accepted(self):

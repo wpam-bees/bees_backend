@@ -155,7 +155,7 @@ REST_FRAMEWORK = {
 }
 
 
-gateway = braintree.BraintreeGateway(
+GATEWAY = braintree.BraintreeGateway(
     braintree.Configuration(
         braintree.Environment.Sandbox,
         merchant_id="cwsft3vzjpgfjptf",
